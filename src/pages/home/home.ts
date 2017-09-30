@@ -6,56 +6,9 @@ import { Test } from "./test.model";
 })
 export class HomePage {
 
-    pageindex = 1;
-    SIZE = 30;
-
-    datas: Array<Test> = [];
+    type = '1';
 
     constructor() {
-        this.refreshData();
-    }
-
-    refreshData() {
-
-        let tempDatas = new Array<Test>();
-
-        for (let i = 0;i < this.SIZE * this.pageindex;i++) {
-            let t = new Test();
-            t.title = 'TestTest' + i;
-            tempDatas.push(t);
-        }
-
-        this.datas = tempDatas;
-    }
-
-    moreData() {
-        let tempDatas = new Array<Test>();
-        
-        for (let i = 0;i < this.SIZE * this.pageindex;i++) {
-            let t = new Test();
-            t.title = 'TestTest' + i;
-            tempDatas.push(t);
-        }
-
-        Array.prototype.push.apply(this.datas, tempDatas);
-    }
-
-    doRefresh(refresh) {
-        setTimeout(() => {
-            this.refreshData();
-            if (refresh) {
-                refresh.complete();
-            }
-        }, 2000);
-    }
-
-    doMore(refresh) {
-        setTimeout(() => {
-            this.moreData();
-            if (refresh) {
-                refresh.complete();
-            }
-        }, 2000);
     }
 
 }

@@ -1,28 +1,46 @@
 <ion-header>
-  <ion-navbar>
-      <ion-title>TestScroll</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-segment [(ngModel)]="type">
+            <ion-segment-button value="1" (ionSelect)="doRefresh1(null)">
+                Me
+            </ion-segment-button>
+
+            <ion-segment-button value="2" (ionSelect)="doRefresh2(null)">
+                Other
+            </ion-segment-button>
+        </ion-segment>
+    </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-      <ion-refresher-content
-          pullingIcon="arrow-dropdown"
-          pullingText="pulling to refresh"
-          refreshingSpinner="circles"
-          refreshingText="loading...">
-      </ion-refresher-content>
-  </ion-refresher>
+<ion-content style="background-color: #f5f0eb" [ngSwitch]="type">
+    <ion-content *ngSwitchCase="1">
+    
+        <ion-card tappable *ngFor="let item of guardDatas;let i = index;" (click)="itemClick1(item)">
+            <ion-card-content class="list-style">
+                <div class="main-title" style="display: flex;">
+                    <span style="flex: 1;">{{item.week}}</span>
+                    <span style="flex: 1;">{{item.date}}</span>
+                </div>
+                <p text-wrap class="sub-title" style="margin-top: 0.5rem;">{{item.guardStatus}}</p>
+                <div style="display: flex;margin-top: 0.5rem;">
+                    <p text-wrap class="sub-title" style="flex: 2;align-self: center;">{{item.schedule}}</p>
+                    <button ion-button style="flex: 1;float:right;">
+                        删除
+                    </button>
+                </div>
+                
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
 
-  <ion-card tappable *ngFor="let item of datas;let i = index;" (click)="itemClick(item)">
-      <ion-card-content class="list-style">
-          <div class="main-title">
-              {{item.title}}
-          </div>
-      </ion-card-content>
-  </ion-card>
-  
-  <ion-infinite-scroll (ionInfinite)="doMore($event)">
-      <ion-infinite-scroll-content loadingSpinner="circles" loadingText="loading..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-content *ngSwitchCase="2">
+    
+        <ion-list tappable *ngFor="let item of datas;let i = index;" (click)="itemClick2(item)">
+            <ion-item *ngFor="let item of departDatas">
+                <ion-label>
+                    {{item.title}}
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-content>
